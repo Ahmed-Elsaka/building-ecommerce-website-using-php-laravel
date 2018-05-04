@@ -1,0 +1,23 @@
+continue from lesson 18
+
+in edite file
+start from here how to apply update
+
+    <form action="/adminpanel/users" method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                               @csrf
+                             @include('admin.user.form')
+    </form>
+
+
+
+    - Search pagination doesn't work
+
+
+88 =min(3)
+
+
+problems :
+    ajax request filtering not working on site messages videos(72-75)
