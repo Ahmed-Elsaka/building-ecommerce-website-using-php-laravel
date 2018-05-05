@@ -129,3 +129,7 @@ function setActive($array,$class="active"){
 function buForUserCount($user_id,$status){
     return \App\BU::where('user_id',$user_id)->where('bu_status',$status)->count();
 }
+
+function countAllBuAppentToStatus($status){
+    return \App\BU::where('bu_status',$status)->count();
+}

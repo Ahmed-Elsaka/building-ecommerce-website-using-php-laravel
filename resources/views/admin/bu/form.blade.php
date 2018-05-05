@@ -275,6 +275,7 @@
             @endif
         </div>
     </div>
+    @if(!isset($user))
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
         <div class="col-md-8">
@@ -286,6 +287,7 @@
             @endif
         </div>
     </div>
+    @endif
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('KeyWords') }}</label>
 
@@ -298,6 +300,7 @@
             @endif
         </div>
     </div>
+    @if(!isset($user))
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
         <div class="col-md-8">
@@ -311,6 +314,7 @@
             <div class="alert alert-warning">Maximum no of letters is 160 letter according to google standard</div>
         </div>
     </div>
+    @endif
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Longitude') }}</label>
         <div class="col-md-8">
@@ -322,6 +326,7 @@
             @endif
         </div>
     </div>
+
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Latitude') }}</label>
         <div class="col-md-8">

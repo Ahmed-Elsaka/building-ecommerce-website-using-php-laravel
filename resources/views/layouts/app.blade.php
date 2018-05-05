@@ -140,10 +140,12 @@
             </div>
 
         </div>
+        <div class="clearfix"><br></div>
 
 
         @yield('content')
 
+        <div class="clearfix"><br></div>
         <div class="footer">
             <div class="clearfix"><br></div>
             <div class="footer_bottom">

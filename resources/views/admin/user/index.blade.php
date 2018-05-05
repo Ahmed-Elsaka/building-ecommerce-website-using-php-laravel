@@ -33,6 +33,7 @@
                                 <th>Name</th>
                                 <th>Email(s)</th>
                                 <th>Created At</th>
+                                <th>User Buildings</th>
                                 <th>Access</th>
                                 <th>Control</th>
                             </tr>
@@ -62,6 +63,7 @@
                                 <th>Name</th>
                                 <th>Email(s)</th>
                                 <th>Created At</th>
+                                <th>User Buildings</th>
                                 <th>Access</th>
                                 <th>Control</th>
                             </tr>
@@ -93,7 +95,8 @@
                 var classname = $(this).index() == 6  ?  'date' : 'dateslash';
                 var title = $(this).html();
                 $(this).html( '<input type="text" class="' + classname + '" data-value="'+ $(this).index() +'" placeholder=" ٍSearch '+title+'" />' );
-            }else if($(this).index() == 4){
+            }
+            else if($(this).index() == 5){
                 $(this).html( '<select><option value="Member"> Member </option><option value="Manager"> Manager </option></select>' );
             }
 
@@ -108,6 +111,7 @@
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
                 {data: 'created_at', name: 'created_at'},
+                {data: 'mybu', name: 'mybu'},
                 {data: 'admin', name: 'admin'},
                 //  {data: 'exame', name: 'exame'},
                 {data: 'control', name: ''}

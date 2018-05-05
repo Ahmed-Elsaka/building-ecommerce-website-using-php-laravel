@@ -36,8 +36,15 @@ Route::group(['middleware'=>['web','admin']], function(){
     Route::get('/adminpanel/contact/{id}/delete','ContactController@destroy');
 
     #users
-    Route::resource('/adminpanel/bu','BuController');
+    Route::resource('/adminpanel/bu','BuController',['except'=>['index','show']]);
+    Route::get('/adminpanel/bu/{id?}','BuController@index');
+
     Route::get('/adminpanel/bu/{id}/delete','BuController@destroy');
+
+
+    // change the state of building
+    Route::get('/adminpanel/changestatus/{id}/{status}','UsersController@ChangeStatus');
+
 
 });
 

@@ -14,8 +14,10 @@ use DataTables;
 
 class BuController extends Controller
 {
-    public function index(){
-        return view('admin.bu.index');
+    public function index(Request $request){
+        $id = $request->id != null ?'?user_id='.$request->id : null;
+
+        return view('admin.bu.index',compact('id'));
     }
     public function create(){
         return view('admin.bu.add');
@@ -85,8 +87,13 @@ class BuController extends Controller
         $bu->find($id)->delete();
         return  redirect('/adminpanel/bu')->withFlashMessage('the User '.$bu->bu_name.' has deleted successfully');
     }
-    public function anyData(BU $bu){
-        $bus = $bu->all();
+    public function anyData(Request $request,BU $bu){
+        if($request->user_id){
+            $bus = $bu->where('user_id',$request->user_id)->get();
+        }else{
+            $bus = $bu->all();
+        }
+
         return DataTables::of($bus)
             ->editColumn('bu_name', function($model){
                 $var =\Html::link('/adminpanel/bu/'. $model->id .'/edit',$model->bu_name,array('class'=>''));
@@ -98,10 +105,9 @@ class BuController extends Controller
                 return $type[$model->bu_type];
                 // return $model->admin == 0 ? '<span class="badge badge-info">' . 'member' . '</span>' : '<span class="badge badge-warning">' . 'Manager' . '</span>';
                 // return $model->admin == 0 ? \Html::link('','member',array('class'=>'badge badge-info')):\Html::link('','Manager',array('class'=>'badge badge-info'));
-
             })
             ->editColumn('bu_status', function($model) {
-                return $model->bu_status==0? "NotActive"    :'Active';
+                return $model->bu_status==0? "NotActive":'Active';
                 // return $model->admin == 0 ? '<span class="badge badge-info">' . 'member' . '</span>' : '<span class="badge badge-warning">' . 'Manager' . '</span>';
                 // return $model->admin == 0 ? \Html::link('','member',array('class'=>'badge badge-info')):\Html::link('','Manager',array('class'=>'badge badge-info'));
 
@@ -298,4 +304,6 @@ class BuController extends Controller
 
         
     }
+
+
 }

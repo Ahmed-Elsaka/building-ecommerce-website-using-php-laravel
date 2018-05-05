@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col col-md-3">
 @if(\Illuminate\Support\Facades\Auth::user())
 
     <div class="profile-sidebar">

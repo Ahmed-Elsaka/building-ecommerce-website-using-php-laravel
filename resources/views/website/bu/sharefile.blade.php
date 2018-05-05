@@ -67,7 +67,7 @@
                                     @endif
 
                             </div>
-                            <div class="pricetext">Price : {{ $b->bu_price }} €</div>
+                            <div class="pricetext">{{ $b->bu_price }} €</div>
                         </div>
                     </div>
                 </div>

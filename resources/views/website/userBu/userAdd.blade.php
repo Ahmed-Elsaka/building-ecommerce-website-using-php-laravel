@@ -24,7 +24,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
                     {!! Form::open(['url' =>'/user/create/building', 'method' =>'post', 'files'=> true]) !!}
-                @include('admin.bu.form',['user'=>1])
+                          @include('admin.bu.form',['user'=>1])
                     {!! Form::close() !!}
                     <br>
                 </div>

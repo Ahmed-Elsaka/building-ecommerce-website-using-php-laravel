@@ -27,6 +27,7 @@ class BuRequest extends FormRequest
     public function rules()
     {
         return [
+
             'bu_name'=>'required|min:5|max:100',
             'bu_price' =>'required',
             'bu_rent'=>'required|integer',
@@ -38,6 +39,7 @@ class BuRequest extends FormRequest
             'bu_latitude'=>'required',
             'bu_larg_dis'=>'required|min:5',
             //'bu_status'=>'required|integer',
+
             'rooms'=>'required|integer',
             'image'=>'mimes:jpeg,bmp,png,jpg',
             'bu_place'=>'required',

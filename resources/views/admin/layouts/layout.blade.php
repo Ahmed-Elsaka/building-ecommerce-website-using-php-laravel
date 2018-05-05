@@ -78,43 +78,44 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning">{{ countAllBuAppentToStatus(0) }}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
+                            <li class="header">You have {{ countAllBuAppentToStatus(0) }} inactive buildings</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
+                                    @foreach(\App\BU::where('bu_status',0)->get() as $buWaiting)
+                                        <li><!-- start message  -->
+
+
+                                                <h4 style="margin-left: 2px ">
+
+                                                        <i class="fa  fa-clock-o">
+
+                                                        </i>
+
+                                                    <a href="{{url('/adminpanel/bu/'.$buWaiting->id.'/edit')}}" style="padding: 0px">
+                                                         {{ $buWaiting->bu_name }}
+                                                    </a>
+                                                    <a href="{{ url('/adminpanel/changestatus/'.$buWaiting->id.'/1') }}" style="margin-right: 20px"
+                                                       class="fa fa-check pull-right">
+
+                                                    </a>
+                                                </h4>
+                                            <small class="pull-right" ><i class=""></i> {{ $buWaiting->created_at }}</small>
+                                            <div class="clearfix"></div>
+                                            <p  style="margin-left: 10px ">{{str_limit( $buWaiting->bu_small_dis ,80)}}</p>
+
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
+                            <!--
                             <li class="footer"><a href="#">View all</a></li>
+                             -->
                         </ul>
+
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">

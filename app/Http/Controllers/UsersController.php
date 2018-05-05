@@ -23,9 +23,7 @@ class UsersController extends Controller
     public function create(){
         return view('admin.user.add');
     }
-
-
-    protected function store(AddUserRequestAdmin $request, User $user)
+    public function store(AddUserRequestAdmin $request, User $user)
     {
         $user->create([
             'name' => $request->name,
@@ -34,12 +32,14 @@ class UsersController extends Controller
         ]);
         return  redirect('/users')->withFlashMessage('the member has added successfully');
     }
-
-    public function edit(  $id){
+    public function edit( $id, BU $bu){
         $user = User::findOrFail($id);
-        return view('admin.user.edit',compact('user'));
-     }
+        //waiting building related to this user
+        $buWaiting = $bu->where('user_id', $id)->where('bu_status',0)->orderBy('id','desc')->get();
+        $buEnable = $bu->where('user_id', $id)->where('bu_status',1)->orderBy('id','desc')->paginate(10);
 
+        return view('admin.user.edit',compact('user','buWaiting','buEnable'));
+     }
    // public function update(  $id, User $user, Request $request){
     public function update(  Request $request, User $user){
 
@@ -63,14 +63,11 @@ class UsersController extends Controller
     {
         return 'iam in show message';
     }
-
     public function destroy($id, User $user){
         $user->find($id)->delete();
         BU::where('user_id',$id)->delete();  //dlete buildings related to this user
         return  redirect('/users')->withFlashMessage('the User '.$user->name.' has deleted successfully');
     }
-
-
     public function UpdatePassword(Request $request , User $user){
 
 
@@ -80,20 +77,27 @@ class UsersController extends Controller
         return Redirect::back()->withFlashMessage('the password changed successfully');
 
     }
-
     public function anyData(User $user){
         $users = $user->all();
         return DataTables::of($users)
             ->editColumn('name', function($model){
-                return $model->name;
-            //return \Html::link('/users/'. $model->id .'/edit',$model->name, '/edit', $model->name);
+                //return $model->name;
+                $var =\Html::link('/users/'. $model->id .'/edit', $model->name);
+                //return \Html::link('/users/'. $model->id .'/edit',$model->name, '/edit', $model->name);
+                return $var;
             })
             ->editColumn('admin', function($model) {
-                return $model->admin==0? "Member"    :'Manager';
+                return $model->admin==0? "Member" :'Manager';
                // return $model->admin == 0 ? '<span class="badge badge-info">' . 'member' . '</span>' : '<span class="badge badge-warning">' . 'Manager' . '</span>';
                // return $model->admin == 0 ? \Html::link('','member',array('class'=>'badge badge-info')):\Html::link('','Manager',array('class'=>'badge badge-info'));
 
             })
+            ->editColumn('mybu', function($model) {
+                $var =\Html::link('/adminpanel/bu/'. $model->id ,"" ,array('class'=>'btn btn-info btn-circle fa fa-link'));
+                return $var;
+
+            })
+
 
             ->editColumn('control', function($model){
                 if($model->id !=1){
@@ -101,14 +105,12 @@ class UsersController extends Controller
                 }else{
                     $var =\Html::link('/users/'. $model->id .'/edit','Edit Admin',array('class'=>'btn btn-danger btn-circle'));
                 }
-
                 return  $var;
             })
             ->make(true);
 
 
     }
-    
     //functions for  edit user info 
     public function userEditinfo()
     {
@@ -116,7 +118,6 @@ class UsersController extends Controller
         $user = Auth::user();
         return view('website.profile.edit',compact('user'));
     }
-
     public function userUpdateProfile(User $users , UserUpdateRequest $userUpdateRequest)
     {
         $user = Auth::user();
@@ -133,7 +134,6 @@ class UsersController extends Controller
         }
         return Redirect::back()->withFlashMessage('your information changed successfully');
     }
-
     public function userChangePassword(User $users , UserUpdatePassword $userUpdateRequest)
     {
         $user = Auth::user();
@@ -151,6 +151,14 @@ class UsersController extends Controller
 
 
 
+    }
+    //change state of building
+    public function ChangeStatus($id,$status,BU $bu)
+    {
+        $bu = $bu->find($id);
+        $bu->fill(['bu_status'=>$status])->save();
+
+        return Redirect::back()->withFlashMessage('Status changed successfully');
     }
 
 

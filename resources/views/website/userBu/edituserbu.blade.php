@@ -28,7 +28,7 @@
                     {!! Form::model($bu, ['url' =>'/user/update/building', 'method' =>'post', 'files'=> true]) !!}
                    {{-- make hidden field to send bu_id to controller to work with it --}}
                     <input type="hidden" name="bu_id" value="{{ $bu->id }}">
-                    @include('admin.bu.form',['user'=>1])
+                      @include('admin.bu.form',['user'=>1])
                     {!! Form::close() !!}
                     <br>
                 </div>
