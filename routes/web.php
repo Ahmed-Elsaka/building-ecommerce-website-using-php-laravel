@@ -46,6 +46,8 @@ Route::group(['middleware'=>['web','admin']], function(){
     Route::get('/adminpanel/changestatus/{id}/{status}','UsersController@ChangeStatus');
 
 
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 });
 
 

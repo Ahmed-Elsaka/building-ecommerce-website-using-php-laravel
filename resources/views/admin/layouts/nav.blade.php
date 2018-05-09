@@ -1,17 +1,18 @@
 
+
+
 <li class=" treeview">
-    <a href="#">
-        <i class="fa fa-dashboard"></i> <span>Site Setting</span>
+    <a href="{{ url('/users') }}">
+        <i class="fa fa-gears"></i> <span>Settings</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class="active"><a href="{{ url('/adminpanel/sitesetting') }}"><i class="fa fa-circle-o"></i> Main settings </a></li>
-        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+        <li class=""><a href="{{ url('/adminpanel') }}"><i class="fa fa-dashboard"></i> Main settings </a></li>
+        <li class=""><a href="{{ url('/adminpanel/sitesetting') }}"><i class="fa fa-gear"></i> Site settings </a></li>
     </ul>
 </li>
-
 {{--users --}}
 
 <li class=" treeview">
@@ -30,7 +31,7 @@
 {{--  BU --}}
 <li class=" treeview">
     <a href="{{ url('/users') }}">
-        <i class="fa fa-users"></i> <span>Control Properties</span>
+        <i class="fa fa-home"></i> <span>Control Properties</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -43,7 +44,7 @@
 {{-- Contact --}}
 <li class=" treeview">
     <a href="{{ url('/users') }}">
-        <i class="fa fa-users"></i> <span>Site Messages</span>
+        <i class="fa fa-envelope-o"></i> <span>Site Messages</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
