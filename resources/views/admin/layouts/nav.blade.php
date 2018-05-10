@@ -9,7 +9,7 @@
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class=""><a href="{{ url('/adminpanel') }}"><i class="fa fa-dashboard"></i> Main settings </a></li>
+        <li class=""><a href="{{ url('/adminpanel') }}"><i class="fa fa-dashboard"></i> Main Statistics</a></li>
         <li class=""><a href="{{ url('/adminpanel/sitesetting') }}"><i class="fa fa-gear"></i> Site settings </a></li>
     </ul>
 </li>

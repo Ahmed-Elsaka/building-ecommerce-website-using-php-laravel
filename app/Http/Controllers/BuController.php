@@ -78,6 +78,7 @@ class BuController extends Controller
             'rooms'=>$buRequest->rooms,
             'bu_place'=>$buRequest->bu_place,
             'image'=>$image,
+            'month'=>date('m')
         ];
         //dd($data);
         $bu->create($data);
@@ -237,6 +238,7 @@ class BuController extends Controller
             'rooms'=>$buRequest->rooms,
             'bu_place'=>$buRequest->bu_place,
             'image'=>$image,
+            'month'=>date('m')
         ];
         //dd($data);
         $bu->create($data);
