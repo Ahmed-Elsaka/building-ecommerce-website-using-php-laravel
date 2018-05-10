@@ -31,7 +31,7 @@
         <!-- Logo -->
         <a href="{{ url('/adminpanel') }}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>O</b>NE</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b><i class="fa fa-paper-plane"></i></b> ONE</span>
         </a>
@@ -170,15 +170,20 @@
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                </div>
-            </form>
+            <ul class="sidebar-menu tree text-center">
+                <br>
+                <li class="header">
+
+                       LAST SEEN: {{ Auth::user()->updated_at }}
+
+
+                </li>
+                <br>
+
+            </ul>
+
+
+
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">

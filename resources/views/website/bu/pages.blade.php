@@ -1,7 +1,7 @@
 <div class="col col-md-3">
 @if(\Illuminate\Support\Facades\Auth::user())
 
-    <div class="profile-sidebar">
+    <div class="profile-sidebar" style="color:#777">
         <!-- SIDEBAR USER TITLE -->
         <h2 style="margin-left: 10px">Member Options</h2>
         <div class="profile-usermenu">
@@ -41,7 +41,7 @@
 
     <br>
     @endif
-    <div class="profile-sidebar">
+    <div class="profile-sidebar" style="color:#777">
         <!-- SIDEBAR USER TITLE -->
         <h2 style="margin-left: 10px">Property Option</h2>
         <div class="profile-usermenu">
@@ -84,7 +84,7 @@
         <!-- END MENU -->
     </div>
     <br>
-    <div class="profile-sidebar">
+    <div class="profile-sidebar" style="color:#777">
         <!-- SIDEBAR USER TITLE -->
         <h2 style="margin-left: 10px">Advanced Search </h2>
         <div class="profile-usermenu" style="padding-right: 10px; padding-left: 10px">

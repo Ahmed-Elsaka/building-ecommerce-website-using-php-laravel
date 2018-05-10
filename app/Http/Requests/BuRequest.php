@@ -34,7 +34,7 @@ class BuRequest extends FormRequest
             'bu_square'=>'required|min:2|max:100',
             'bu_type'=>'required|integer',
             //'bu_small_dis'=>'required|min:5|max:160',
-            'bu_meta'=>'required|min:5|max:200',
+            //'bu_meta'=>'required|min:5|max:200',
             'bu_langtuite'=>'required',
             'bu_latitude'=>'required',
             'bu_larg_dis'=>'required|min:5',

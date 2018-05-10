@@ -1,6 +1,11 @@
 @csrf
+<style>
+    .col-md-4 {
+        margin-top: 20px;
+        width: 33.33333333333333%;
+    }
 
-
+</style>
 
 @if(!isset($bu))
     <!-- ADD NEW bu -->
@@ -63,7 +68,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image ') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Main Image ') }}</label>
         <div class="col-md-8">
             <div class="clearfix"><br></div>
             {!! Form::file("image", null, ['class'=>'form-control']) !!}
@@ -74,6 +79,24 @@
             @endif
         </div>
     </div>
+
+
+    <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Building Images ') }}</label>
+        <div class="col-md-8">
+            <div class="clearfix"><br></div>
+            <input type="file" class="form-control" name="photos[]" multiple />
+            @if ($errors->has('image'))
+                <span class="invalid-feedback">
+            <strong>{{ $errors->first('image') }}</strong>
+        </span>
+            @endif
+        </div>
+    </div>
+
+
+
+
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Area square') }}</label>
 
@@ -112,7 +135,6 @@
     @endif
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('KeyWords') }}</label>
-
         <div class="col-md-8">
             {!! Form::text("bu_meta", null , ['class'=>'form-control']) !!}
             @if ($errors->has('bu_meta'))
@@ -253,6 +275,11 @@
             @endif
         </div>
     </div>
+
+
+
+
+
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Area square') }}</label>
         <div class="col-md-8">

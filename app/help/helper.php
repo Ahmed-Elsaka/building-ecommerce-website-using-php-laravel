@@ -4,8 +4,10 @@ function getSetting($settingname = 'sitename'){
     return \App\SiteSetting::where('namesetting',$settingname)->get()[0]->value;
 }
 function checkIfImageIsExist($imageName = '',  $pathImage = '/public/website/bu_images/', $url = '/website/bu_images/'){
+
     if($imageName != ''){
         $path = base_path().$pathImage.$imageName;
+        //dd($path);
         if(file_exists($path)){
             return Request::root().$url.$imageName;
         }

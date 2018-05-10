@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BU;
+use App\BUPhotos;
 use App\Http\Requests\BuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,18 +31,8 @@ class BuController extends Controller
        $buUpdate = Bu::find($id);
         $buUpdate->fill(array_except($buRequest->all(),['image']))->save();
         if($buRequest->file('image')){
-            /*
-            $dim = getimagesize($buRequest->file('image'));
-            if($dim[0] >500 || $dim[1] > 362){
-                return  Redirect::back()->withFlashMessage('please select image with size w < 500, l < 362');
-            }
-            $fileName = $buRequest->file('image')->getClientOriginalName();
-            $buRequest->file('image')->move(base_path().'/public/website/bu_images/', $fileName);
-          */
             $fileName = uploadImage($buRequest->file('image'),'/public/website/bu_images/', 500, 362,$buUpdate->image);
-
             if($fileName == false){
-
                 return Redirect::back()->withFlashMessage('please select image with size w < 500, l < 362');
             }
              $buUpdate->fill(['image'=>$fileName])->save();
@@ -50,7 +41,7 @@ class BuController extends Controller
         return  Redirect('/adminpanel/bu')->withFlashMessage('the Properity Has been Updated Successfully');
     }
     public function store(BuRequest $buRequest, BU $bu){
-
+      //  dd('iam in store function in Bu controller');
         if($buRequest->file('image')) {
             $fileName = uploadImage($buRequest->file('image'));
             if(!$fileName){
@@ -82,11 +73,26 @@ class BuController extends Controller
         ];
         //dd($data);
         $bu->create($data);
+        $bu_id = $bu->where('bu_name',$buRequest->bu_name)->where('bu_price',$buRequest->bu_price)->where('bu_type',$buRequest->bu_type)
+            ->where('bu_small_dis',$buRequest->bu_small_dis)->where('bu_place',$buRequest->bu_place)
+            ->value('id');
+        //dd($bu_id);
+        if($buRequest->file('photos')){
+            foreach($buRequest->file('photos') as $img)
+            {
+                $photoName = uploadImage($img,'/public/website/Buildings_images',600,400);
+                BUPhotos::create([
+                    'bu_id'=>$bu_id,
+                    'photo_name'=>$photoName,
+                ]);
+
+            }
+        }
         return Redirect('/adminpanel/bu')->withFlashMessage('the Properity Has beed Added Successfully');
     }
     public function destroy($id, BU $bu){
         $bu->find($id)->delete();
-        return  redirect('/adminpanel/bu')->withFlashMessage('the User '.$bu->bu_name.' has deleted successfully');
+        return  redirect('/adminpanel/bu')->withFlashMessage('the Building '.$bu->bu_name.' has deleted successfully');
     }
     public function anyData(Request $request,BU $bu){
         if($request->user_id){
@@ -195,21 +201,22 @@ class BuController extends Controller
             $buInfo = $bu->findOrFail($id);
             $same_rent = $bu->where('bu_rent',$buInfo->bu_rent)->orderBy(DB::raw('RAND()'))->take(3)->get();
             $same_type = $bu->where('bu_type',$buInfo->bu_type)->orderBy(DB::raw('RAND()'))->take(3)->get();
-            return view('website.bu.buInfo',compact('buInfo','same_rent','same_type'));
+            $building_images = BUPhotos::where('bu_id',$id)->get();
+            $building_images_count = BUPhotos::where('bu_id',$id)->count();
+            return view('website.bu.buInfo',compact('buInfo','same_rent','same_type','building_images','building_images_count'));
     }
     public function getAjaxInfo(Request $request, Bu $bu){
         return $bu->find($request->id)->toJson();
 
     }
-
     // add new property to user
     public function userAddView()
     {
         return view('website.userBu.userAdd');
     }
     public function userStore(BuRequest $buRequest, BU $bu){
-
-
+       // dd('iam in user strore function');
+          //  dd($buRequest->toArray());
         if($buRequest->file('image')) {
             $fileName = uploadImage($buRequest->file('image'));
             if(!$fileName){
@@ -219,7 +226,6 @@ class BuController extends Controller
         }else{
             $image = '';
         }
-
 
         $user = Auth::user()?Auth::user()->id :0;
         $data = [
@@ -242,11 +248,25 @@ class BuController extends Controller
         ];
         //dd($data);
         $bu->create($data);
+
+        //upload images related to building
+        $bu_id = $bu->where('bu_name',$buRequest->bu_name)->where('bu_price',$buRequest->bu_price)->where('bu_type',$buRequest->bu_type)
+            ->where('bu_small_dis',strip_tags(str_limit($buRequest->bu_larg_dis,150)))->where('bu_place',$buRequest->bu_place)
+            ->value('id');
+
+        if($buRequest->file('photos')){
+            foreach($buRequest->file('photos') as $img)
+            {
+                $photoName = uploadImage($img,'/public/website/Buildings_images',600,400);
+                BUPhotos::create([
+                    'bu_id'=>$bu_id,
+                    'photo_name'=>$photoName,
+                ]);
+            }
+        }
         return view('website.userBu.done');
         //return Redirect('/adminpanel/bu')->withFlashMessage('the Properity Has beed Added Successfully');
     }
-    
-    
     // function return buildings to specific user 
     public function showUserBuildings(BU $bu)
     {
@@ -307,5 +327,67 @@ class BuController extends Controller
         
     }
 
+
+    // test multiUpload images
+    public function uploadForm()
+
+    {
+
+        return view('Upload_form');
+
+    }
+
+    public function uploadSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'photos'=>'required',
+        ]);
+       // dd($request->toArray());
+        //get bu_id based on input data
+        $data="";
+        if($request->hasFile('photos')){
+            foreach($request->file('photos') as $image)
+            {
+                $name=$image->getClientOriginalName();
+                //$image->move(public_path().'/images/', $name);
+                $image_name = $data;
+                /*
+                BUPhotos::create([
+                    'bu_id'=>2,
+                    'photo_name'=>$name,
+                ]);
+                */
+                $data .= $name." | ";
+            }
+        }
+       // dd($data);
+
+        if($request->hasFile('photos')) {
+            $allowedfileExtension = ['jpeg', 'jpg', 'png', 'docx'];
+            $files = $request->file('photos');
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $check = in_array($extension, $allowedfileExtension);
+                if ($check) {
+
+                    //$items = Item::create($request->all());
+                    foreach ($request->photos as $photo) {
+                        //  $filename = $photo->store('photos');
+                        // ItemDetail::create([
+                        //   'item_id' => $items->id,
+                        // 'filename' => $filename
+                        //]);
+                    }
+                    echo "Upload Successfully";
+                } else {
+                    echo '<div class="alert alert-warning"><strong>Warning!</strong> Sorry Only Upload png , jpg , doc</div>';
+                }
+
+            }
+        }
+        return view('website.bu.itemSlider');
+    }
 
 }

@@ -87,3 +87,8 @@ Route::get('/user/editBuilding/{id}','BuController@userEditProperty')->middlewar
 Route::post('/user/update/building','BuController@userUpdateProperty')->middleware('auth');
 
 
+//test multiUpload image
+
+Route::get('/multiuploads', 'BuController@uploadForm');
+Route::post('/multiuploads', 'BuController@uploadSubmit');
+
