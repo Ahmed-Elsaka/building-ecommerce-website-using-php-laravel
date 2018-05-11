@@ -164,6 +164,7 @@
     {!! Html::script('website/js/responsive-nav.js') !!}
         {!! Html::script('cus/sweetalert.min.js') !!}
         @include('/admin/layouts/f_message')
+
     @yield('footer')
 
 

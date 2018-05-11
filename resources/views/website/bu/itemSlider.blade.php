@@ -18,16 +18,15 @@
 
     <div class="carousel-inner" role="listbox" style="max-height: 400px">
         <div class="item">
-            <img src="{{  checkIfImageIsExist($buInfo->image) }}" class="img-responsive" ><br>
+            <img src="{{  checkIfImageIsExist($buInfo->image) }}" class="img-responsive"  ><br>
             <div class="carousel-caption">
-                <h3>First Image</h3>
             </div>
         </div>
         @foreach($building_images as $photo )
         <div class="item">
-            <img src="{{ checkIfImageIsExist($photo->photo_name,'/public/website/Buildings_images/','/website/Buildings_images/') }}" class="img-responsive" ><br>
+            <img src="{{ checkIfImageIsExist($photo->photo_name,'/public/website/Buildings_images/','/website/Buildings_images/') }}" style="width: 786px; height: 400px;"  ><br>
             <div class="carousel-caption">
-                <h3>First Image</h3>
+
             </div>
         </div>
         @endforeach
@@ -48,7 +47,7 @@
     var $item = $('.carousel .item');
     var $wHeight = $(window).height();
     $item.eq(0).addClass('active');
-    $item.height($wHeight);
+    $item.height(400);
     $item.addClass('full-screen');
 
     $('.carousel img').each(function() {

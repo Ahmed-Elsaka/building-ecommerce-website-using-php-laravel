@@ -51,7 +51,7 @@
                             {!! Form::select("rooms",roomnumber(), null,['class'=>'form-control js-example-basic-single']) !!}
                         </div>
                         <div class="col-lg-3" >
-                            {!! Form::select("bu_place",bu_place(), null,['class'=>'form-control js-example-basic-single ']) !!}
+                            {!! Form::select("bu_place",bu_place(), null,['class'=>'form-control js-example-basic-single']) !!}
                         </div>
                     </div>
                     <br>
@@ -66,7 +66,7 @@
                             {!! Form::text("bu_square",null,['class'=>'form-control text-center','placeholder'=>'Area']) !!}
                         </div>
                         <div class="col-lg-3">
-                            {!! Form::submit("Search",['class'=>'btn btn-success js-example-basic-single' ,'style'=>'width:100%']) !!}
+                            {!! Form::submit("Search",['class'=>'btn btn-success ' ,'style'=>'width:100%']) !!}
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -78,11 +78,11 @@
     <div class="main">
 
 
-        <ul class="cd-items cd-container effect8">
+        <ul class="cd-items cd-container ">
             @foreach(\App\BU::where('bu_status',1)->orderBy('id','desc')->take(12)->get() as $bu)
             <li class="cd-item effect8" >
                 <img src="{{ checkIfImageIsExist($bu->image,'/public/website/thumb/','/website/thumb/') }}" alt="{{$bu->name}}" title="{{$bu->name}}">
-                <a href="#0" data-id="{{$bu->id}}" class="cd-trigger"  title="{{$bu->name}}">Quick View</a>
+                <a href="#0" data-id="{{$bu->id}}" class="cd-trigger"  title="{{$bu->name}}" style="color: #5cb85c">Quick View </a>
             </li> <!-- cd-item -->
             @endforeach
 

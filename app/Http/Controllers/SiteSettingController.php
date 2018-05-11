@@ -19,7 +19,6 @@ class SiteSettingController extends Controller
     }
 
     public function store(Request $request, SiteSetting $siteSetting){
-
         foreach (array_except($request->toArray(),['_token','submit']) as $key=> $req){
          //   $siteSettingUpdate = $siteSetting->where('namesetting', $key)->first();
             $siteSettingUpdate = $siteSetting->where('namesetting', $key)->get()[0];
@@ -27,7 +26,6 @@ class SiteSettingController extends Controller
                 $siteSettingUpdate->fill(['value' => $req ])->save();
             }else{
                 $fileName = uploadImage($req, 'public/website/slider/', 1600, 500 ,$siteSettingUpdate->value);
-
                 if($fileName){
                     $siteSettingUpdate->fill(['value' => $fileName ])->save();
                 }

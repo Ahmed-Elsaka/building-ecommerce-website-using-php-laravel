@@ -80,7 +80,7 @@ class BuController extends Controller
         if($buRequest->file('photos')){
             foreach($buRequest->file('photos') as $img)
             {
-                $photoName = uploadImage($img,'/public/website/Buildings_images',600,400);
+                $photoName = uploadImage($img,'/public/website/Buildings_images',786,400);
                 BUPhotos::create([
                     'bu_id'=>$bu_id,
                     'photo_name'=>$photoName,
@@ -257,7 +257,8 @@ class BuController extends Controller
         if($buRequest->file('photos')){
             foreach($buRequest->file('photos') as $img)
             {
-                $photoName = uploadImage($img,'/public/website/Buildings_images',600,400);
+                $photoName = uploadImage($img,'/public/website/bu_images/',786,400);
+
                 BUPhotos::create([
                     'bu_id'=>$bu_id,
                     'photo_name'=>$photoName,

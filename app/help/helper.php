@@ -3,8 +3,8 @@
 function getSetting($settingname = 'sitename'){
     return \App\SiteSetting::where('namesetting',$settingname)->get()[0]->value;
 }
-function checkIfImageIsExist($imageName = '',  $pathImage = '/public/website/bu_images/', $url = '/website/bu_images/'){
 
+function checkIfImageIsExist($imageName = '',  $pathImage = '/public/website/bu_images/', $url = '/website/bu_images/'){
     if($imageName != ''){
         $path = base_path().$pathImage.$imageName;
         //dd($path);
@@ -23,10 +23,19 @@ function uploadImage($buRequest, $path = '/public/website/bu_images/', $width = 
     $dim = getimagesize($buRequest);
     $fileName = $buRequest->getClientOriginalName();
     $buRequest->move(base_path($path), $fileName);
-    if($width = 500 && $hight = 362){
+    if($width == 500 && $hight == 362){
         $thumbPath = base_path('/public/website/thumb/');
         $thumbPathNew = $thumbPath.$fileName;
         Intervention\Image\Facades\Image::make(base_path($path).'/'.$fileName)->resize('800','800')->save($thumbPathNew,100);
+        if($deleteFileWithName !=''){
+            deleteImage($thumbPath .$deleteFileWithName);
+        }
+    }else if($width == 786 ){
+        //dd('iam in silider part');
+        $thumbPath = base_path('/public/website/Buildings_images/');
+        $thumbPathNew = $thumbPath.$fileName;
+        //dd($thumbPathNew);
+        Intervention\Image\Facades\Image::make(base_path($path).'/'.$fileName)->resize('786','400')->save($thumbPathNew,100);
         if($deleteFileWithName !=''){
             deleteImage($thumbPath .$deleteFileWithName);
         }
@@ -73,9 +82,35 @@ function roomnumber(){
 function bu_place(){
     $array = [''=>'Select Place',
     'tanta',
-    'cairo',
+    'Cairo',
     'alex',
-    '6 october'];
+    '6 october',
+        'Matrouh',
+'Alexandria',
+'Beheira',
+'Kafr El Sheikh',
+'Dakahlia',
+'Damietta',
+'Port Said',
+'North Sinai',
+'Gharbia',
+'Monufia',
+'Qalyubia',
+'Sharqia',
+'Ismailia',
+'Giza',
+'Faiyum',
+'Suez',
+'South Sinai',
+'Beni Suef',
+'Minya',
+'New Valley',
+'Asyut',
+'Red Sea',
+'Sohag',
+'Qena',
+'Luxor',
+'Aswan',];
     return $array;
 }
 function searchnameFiled(){
