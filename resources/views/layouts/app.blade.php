@@ -107,6 +107,13 @@
                                                         <i class="fa fa-plus "></i>
                                                         Add new Properity </a>
                                                 </li>
+                                                @if(\Illuminate\Support\Facades\Auth::user()->admin ==1)
+                                                    <li  class="{{ setActive(['user','create','building']) }}">
+                                                        <a href="{{url('/adminpanel')}}">
+                                                            <i class="fa fa-gears "></i>
+                                                            Admin Panel </a>
+                                                    </li>
+                                                @endif
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                                        onclick="event.preventDefault();

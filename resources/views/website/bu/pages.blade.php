@@ -120,7 +120,31 @@
         </div>
         <!-- END MENU -->
     </div>
+    <br>
+    <div class="profile-sidebar" style="color:#777">
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usermenu" style="padding-right: 10px; padding-left: 10px">
+            <img src="{{ getSetting('ads1') }}">
+        </div>
+        <!-- END MENU -->
+    </div>
+    <br>
+    <div class="profile-sidebar" style="color:#777">
+        <!-- SIDEBAR USER TITLE -->
 
+        <div class="profile-usermenu" style="padding-right: 10px; padding-left: 10px">
+            <img src="{{ getSetting('ads2') }}">
+        </div>
+        <!-- END MENU -->
+    </div>
+    <br>
+    <div class="profile-sidebar" style="color:#777">
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usermenu" style="padding-right: 10px; padding-left: 10px">
+            <img src="{{ getSetting('ads3') }}">
+        </div>
+        <!-- END MENU -->
+    </div>
 
 
 
